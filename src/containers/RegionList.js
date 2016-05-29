@@ -5,9 +5,13 @@ class RegionList extends Component {
   render() {
     return (
       <div>
-        <h4>Regions</h4>
+        <h4>Available regions for {this.props.selectedRegion}</h4>
         <ul className="list-group">
-          <li className="list-group-item">test</li>
+          {this.props.recapitulation.map((subregion, id) => 
+            <li className="list-group-item" key={id}>
+              {subregion.nama_kab_kota}
+            </li>
+          )}
         </ul>
       </div>
     );
@@ -15,7 +19,19 @@ class RegionList extends Component {
 }
 
 function mapStatToProps({ selectedRegion, regionsRecapitulation}) {
-  return { selectedRegion, regionsRecapitulation};
+  const {
+    isFetching,
+    recapitulation
+  } = regionsRecapitulation[selectedRegion] || {
+    isFetching: true,
+    recapitulation: []
+  };
+
+  return {
+    selectedRegion,
+    recapitulation,
+    isFetching
+  };
 }
 
 export default connect(mapStatToProps)(RegionList);
