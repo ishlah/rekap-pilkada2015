@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
 import {
-  FETCH_REGION, REQUEST_C1_RECAP, RECEIVE_C1_RECAP
+  SEARCH_REGION, REQUEST_C1_RECAP, RECEIVE_C1_RECAP
 } from '../actions/index';
 
 
 function selectedRegion(state = '', action) {
   switch (action.type) {
-    case FETCH_REGION:
+    case SEARCH_REGION:
       return action.region;
     default:
       return state;
