@@ -53,8 +53,8 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ fetchRegion, fetchRegionList }, dispatch);
 }
 
-function mapStateToProps(state) {
-  return state;
+function mapStateToProps({regionList}) {
+  return { regionList };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
