@@ -1,8 +1,17 @@
 import { combineReducers } from 'redux';
 import {
-  SEARCH_REGION, REQUEST_C1_RECAP, RECEIVE_C1_RECAP
+  FETCH_REGION_LIST, SEARCH_REGION, 
+  REQUEST_C1_RECAP, RECEIVE_C1_RECAP
 } from '../actions/index';
 
+function regionList(state = [], action) {
+  switch (action.type) {
+    case FETCH_REGION_LIST:
+      return action.payload;
+    default:
+      return state;
+  }
+}
 
 function selectedRegion(state = '', action) {
   switch (action.type) {
@@ -48,6 +57,7 @@ function regionsRecapitulation(state = {}, action) {
 }
 
 const rootReducer = combineReducers({
+  regionList,
   selectedRegion,
   regionsRecapitulation
 });

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchRegion } from '../actions/index';
+import { fetchRegion, fetchRegionList } from '../actions/index';
 
 class SearchBar extends Component {
 
@@ -11,6 +11,10 @@ class SearchBar extends Component {
     this.state = { term: '' };
     this.onInputChange = this.onInputChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.fetchRegionList();
   }
 
   onFormSubmit(event) {
@@ -46,7 +50,11 @@ class SearchBar extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchRegion }, dispatch);
+  return bindActionCreators({ fetchRegion, fetchRegionList }, dispatch);
 }
 
-export default connect(null, mapDispatchToProps)(SearchBar);
+function mapStateToProps(state) {
+  return state;
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

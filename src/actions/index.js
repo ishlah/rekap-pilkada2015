@@ -2,14 +2,34 @@ import axios from 'axios';
 
 /* Pemilu APIS */
 const PEMILU_API_KEY = '5ab827016d21019632ad9ff8a4c6e233';
-const RECAP_REGIONS_URL = `http://api.pemiluapi.org/c1-pilkada2015/api/kabupaten_kota?apiKey=${PEMILU_API_KEY}&limit=50`;
+const RECAP_REGIONS_URL = `http://api.pemiluapi.org/c1-pilkada2015/api/kabupaten_kota?apiKey=${PEMILU_API_KEY}&limit=100`;
+const REGION_LIST_URL = `http://api.pemiluapi.org/c1-pilkada2015/api/lokasi?apiKey=${PEMILU_API_KEY}&limit=269`
 
 /* Action types */
+export const FETCH_REGION_LIST = 'FETCH_REGION_LIST';
 export const SEARCH_REGION = 'SEARCH_REGION';
 export const REQUEST_C1_RECAP = 'REQUEST_C1_RECAP';
 export const RECEIVE_C1_RECAP = 'RECEIVE_C1_RECAP';
 
 /* Action creators */
+
+export function fetchRegionList () {
+  let url = `${REGION_LIST_URL}`
+
+  return function(dispatch) {
+    return axios.get(url)
+      .then(response => dispatch(receiveRegionList(response)));
+  }
+}
+
+export function receiveRegionList (json) {
+  return {
+    type: FETCH_REGION_LIST,
+    payload: json.data.data.results.lokasi.map(item => item.nama)
+  }
+}
+
+// User triggered action creator
 export function searchRegion(region) {
   return {
     type: SEARCH_REGION,
