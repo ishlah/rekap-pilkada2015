@@ -28,15 +28,20 @@ function regions(state = {
         recapitulation: action.recapitulation 
       });
     default:
+
       return state;
   }
 }
 
 function regionsRecapitulation(state = {}, action) {
-  if (action.type === REQUEST_C1_RECAP) {
-    return Object.assign({}, state, {
-      [action.region]: regions(state[action.region], action)
-    });
+  switch(action.type) {
+    case REQUEST_C1_RECAP:
+    case RECEIVE_C1_RECAP:
+      return Object.assign({}, state, {
+        [action.region]: regions(state[action.region], action)
+      });
+    default:
+      return state;
   }
 
   return state;

@@ -26,8 +26,6 @@ export function requestC1Recap(region) {
 }
 
 export function receiveC1Recap(region, json) {
-  console.log(region, json.data.data.results.data);
-
   return {
     type: RECEIVE_C1_RECAP,
     region,
@@ -38,8 +36,6 @@ export function receiveC1Recap(region, json) {
 /* Async call to fetch searched region */
 export function fetchRegion(region) {
   let url = `${RECAP_REGIONS_URL}&lokasi=${region}`;
-
-  console.log('fetching $', region)
 
   return function(dispatch) {
     // Search
