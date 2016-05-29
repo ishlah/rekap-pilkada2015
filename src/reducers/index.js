@@ -34,7 +34,7 @@ function regions(state = {
 
 function regionsRecapitulation(state = {}, action) {
   if (action.type === REQUEST_C1_RECAP) {
-    return Object.assign({}, stae, {
+    return Object.assign({}, state, {
       [action.region]: regions(state[action.region], action)
     });
   }

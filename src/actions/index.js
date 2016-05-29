@@ -26,10 +26,12 @@ export function requestC1Recap(region) {
 }
 
 export function receiveC1Recap(region, json) {
+  console.log(region, json.data.data.results.data);
+
   return {
     type: RECEIVE_C1_RECAP,
     region,
-    recapitulation: json.data.results.data.children.map(child => child.data)
+    recapitulation: json.data.data.results.data
   }
 }
 
@@ -37,11 +39,15 @@ export function receiveC1Recap(region, json) {
 export function fetchRegion(region) {
   let url = `${RECAP_REGIONS_URL}&lokasi=${region}`;
 
+  console.log('fetching $', region)
+
   return function(dispatch) {
+    // Search
+    dispatch(searchRegion(region));
     // Change status to fetching
-    dispatch(requestC1Recap);
+    dispatch(requestC1Recap(region));
     // get the data
     return axios.get(url)
-      .then(response => console.log(response));
+      .then(response => dispatch(receiveC1Recap(region, response)));
   }
 }
